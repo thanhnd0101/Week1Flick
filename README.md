@@ -28,9 +28,10 @@ The following **bonus** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://imgur.com/agL7AC6' title='Video Main Screen' width='' alt='Video Main Sreen' />
+(https://github.com/thanhnguyenduy2304/Week1Flick/blob/master/assets/mainscreen.gif)
 
-<img src='https://i.imgur.com/qOrFMfS.gif' title='Video Detail Screen' width='' alt='Video Detail Sreen' />
+(https://github.com/thanhnguyenduy2304/Week1Flick/blob/master/assets/detailscreen.gif)
+
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
