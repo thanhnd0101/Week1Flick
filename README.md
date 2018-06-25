@@ -24,6 +24,9 @@ The following **bonus** features are implemented:
 * [ ] When viewing a popular movie (i.e. a movie voted for more than 5 stars) the video should show the full backdrop image as the layout.  Uses [Heterogenous RecyclerView](http://guides.codepath.com/android/Heterogenous-Layouts-inside-RecyclerView) to show different layouts.
 * [ ] Apply rounded corners for the poster or background images using [Glide transformations](https://bumptech.github.io/glide/doc/transformations.html)
 
+The following **additional** features are implemented:
+Animation CollapsingToolbar
+
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
