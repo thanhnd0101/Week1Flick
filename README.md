@@ -28,9 +28,9 @@ The following **bonus** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-(https://github.com/thanhnguyenduy2304/Week1Flick/blob/master/assets/mainscreen.gif)
+<img src = "https://github.com/thanhnguyenduy2304/Week1Flick/blob/master/assets/mainscreen.gif"></img>
 
-(https://github.com/thanhnguyenduy2304/Week1Flick/blob/master/assets/detailscreen.gif)
+<img src = "https://github.com/thanhnguyenduy2304/Week1Flick/blob/master/assets/detailscreen.gif"></img>
 
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
