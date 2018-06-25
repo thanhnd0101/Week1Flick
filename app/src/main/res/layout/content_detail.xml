@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/viewBg"
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".DeTailActivity"
+    tools:showIn="@layout/activity_detail">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/movieTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layoutMarginLeft"
+            android:layout_marginTop="10dp"
+            android:text="@string/movieTitle"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/movieTitle"
+            android:layout_marginLeft="@dimen/layoutMarginLeft"
+            android:layout_marginTop="@dimen/layoutMarginTop"
+            android:padding="@dimen/layoutPadding"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/movieTrailer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/layoutMarginLeft"
+            android:layout_marginTop="10dp"
+            android:text="@string/movieTrailer"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <fragment
+            android:id="@+id/youtubeFragment"
+            android:name="com.google.android.youtube.player.YouTubePlayerFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></fragment>
+
+        <TextView
+            android:id="@+id/plot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_marginLeft="@dimen/layoutMarginLeft"
+            android:layout_marginTop="@dimen/layoutMarginTop"
+            android:text="@string/movieDetail"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/plotSynopsis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/plot"
+            android:layout_marginLeft="@dimen/layoutMarginLeft"
+            android:layout_marginTop="@dimen/layoutMarginTop"
+            android:padding="@dimen/layoutPadding"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/rating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/plotSynopsis"
+            android:layout_marginLeft="@dimen/layoutMarginLeft"
+            android:layout_marginTop="@dimen/layoutMarginTop"
+            android:text="@string/movieRating"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/userrating"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rating"
+            android:layout_marginLeft="@dimen/layoutMarginLeft"
+            android:layout_marginTop="@dimen/layoutMarginTop"
+            android:padding="@dimen/layoutPadding"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/release"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/userRating"
+            android:layout_marginLeft="@dimen/layoutMarginLeft"
+            android:layout_marginTop="@dimen/layoutMarginTop"
+            android:text="@string/movieReleaseDate"
+            android:textAlignment="center"
+            android:textSize="25sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/releaseDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/release"
+            android:layout_marginLeft="@dimen/layoutMarginLeft"
+            android:layout_marginTop="@dimen/layoutMarginTop"
+            android:padding="@dimen/layoutPadding"
+            android:textAlignment="center"
+            android:textSize="20sp" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

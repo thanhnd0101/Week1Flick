@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertial_margin">16dp</dimen>
+    <dimen name="movieTitlePadding">10dp</dimen>
+    <dimen name="movieTitle">15dp</dimen>
+    <dimen name="movieOverView">10dp</dimen>
+    <dimen name="movieCoverHeight">160dp</dimen>
+    <dimen name="cardMovieRadius">0dp</dimen>
+    <dimen name="cardMovieMargin">5dp</dimen>
+    <dimen name="cardMoviePopularHeight">300dp</dimen>
+    <dimen name="userRatingPaddingBottom">5dp</dimen>
+    <dimen name="userRating">12dp</dimen>
+    <dimen name="detailBackdropHeight">400dp</dimen>
+    <dimen name="layoutMarginLeft">10dp</dimen>
+    <dimen name="layoutMarginTop">10dp</dimen>
+    <dimen name="layoutPadding">16dp</dimen>
+</resources>

@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Movies</string>
+    <string name="movieRating">Rating</string>
+    <string name="movieTitle">Movie Title</string>
+    <string name="movieDetail">Overview</string>
+    <string name="movieReleaseDate">Realease Date</string>
+    <string name="movieTrailer">Trailer</string>
+    <string name="plot">Plot Synopsis</string>
+    <string name="rating">User Rating</string>
+
+</resources>
