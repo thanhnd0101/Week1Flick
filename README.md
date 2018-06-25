@@ -45,7 +45,7 @@ Design XML not well.
 
 ## License
 
-    Copyright [yyyy] [Duy-Thanh Nguyen]
+    Copyright [2018] [Duy-Thanh Nguyen]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
