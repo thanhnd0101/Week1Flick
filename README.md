@@ -31,16 +31,16 @@ Animation CollapsingToolbar
 
 Here's a walkthrough of implemented user stories:
 
-Main Screen Portrait
+Main Screen Portrait <br />
 <img src = "https://github.com/thanhnguyenduy2304/Week1Flick/blob/master/assets/mainscreenportrait.gif"></img>
 
-Main Screen Landscape
+Main Screen Landscape <br />
 <img src = "https://github.com/thanhnguyenduy2304/Week1Flick/blob/master/assets/mainscreenlandscape.gif"></img>
 
-Detail Screen + Collapsing Animation
+Detail Screen + Collapsing Animation <br />
 <img src = "https://github.com/thanhnguyenduy2304/Week1Flick/blob/master/assets/animationaCollapsing.gif"></img>
 
-Trailer play full screen 
+Trailer play full screen <br />
 <img src = "https://github.com/thanhnguyenduy2304/Week1Flick/blob/master/assets/youtubeplayfullscreen.gif"></img>
 
 
