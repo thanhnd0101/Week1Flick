@@ -27,31 +27,30 @@ import com.google.android.youtube.player.YouTubePlayerFragment;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 
 public class DeTailActivity extends AppCompatActivity {
-    TextView  plotSynopsis, releaseDate;
-    RatingBar userRating;
-    ImageView imageView;
+    @BindView(R.id.plotSynopsis) TextView  plotSynopsis;
+    @BindView(R.id.releaseDate) TextView releaseDate;
+    @BindView(R.id.userrating) RatingBar userRating;
+    @BindView(R.id.thumbnailImageHeader) ImageView imageView;
     String movieName;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+        ButterKnife.bind(this);
 
         Toolbar toolbar=(Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        imageView = (ImageView) findViewById(R.id.thumbnailImageHeader);
-        plotSynopsis = (TextView) findViewById(R.id.plotSynopsis);
-        userRating= (RatingBar) findViewById(R.id.userrating);
-        releaseDate=(TextView) findViewById(R.id.releaseDate);
 
         initCollapsingToolbar();
 
@@ -63,7 +62,7 @@ public class DeTailActivity extends AppCompatActivity {
             }else{
                 thumbnail = getIntent().getExtras().getString("backdrop_path");
             }
-            movieName = getIntent().getExtras().getString("original_title");
+            movieName = (String)getIntent().getExtras().getString("original_title");
             String synopsis=getIntent().getExtras().getString("overview");
             Float rating= getIntent().getExtras().getFloat("vote_average");
             String dateOfRelease= getIntent().getExtras().getString("release_date");
@@ -96,10 +95,10 @@ public class DeTailActivity extends AppCompatActivity {
     private void initCollapsingToolbar(){
         final CollapsingToolbarLayout collapsingToolbarLayout=
                 (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        collapsingToolbarLayout.setTitle(" ");
+
         AppBarLayout appBarLayout=(AppBarLayout) findViewById(R.id.appbar);
         appBarLayout.setExpanded(true);
-
+        collapsingToolbarLayout.setTitle(movieName);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow=false;
             int scrollRange=-1;
@@ -109,11 +108,11 @@ public class DeTailActivity extends AppCompatActivity {
                     scrollRange=appBarLayout.getTotalScrollRange();
                 }
                 if(scrollRange+ verticalOffset == 0){
-                    collapsingToolbarLayout.setTitle((String)movieName);
+                    collapsingToolbarLayout.setTitle(movieName);
                     isShow=true;
                 }
                 else if (isShow){
-                    collapsingToolbarLayout.setTitle((String)movieName);
+                    collapsingToolbarLayout.setTitle(movieName);
                 }
             }
         });

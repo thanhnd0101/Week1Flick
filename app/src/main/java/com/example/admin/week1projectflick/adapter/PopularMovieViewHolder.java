@@ -13,12 +13,18 @@ import com.example.admin.week1projectflick.model.Movie;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 public class PopularMovieViewHolder extends RecyclerView.ViewHolder{
-    public ImageView thumbnailPopular;
+    @BindView(R.id.thumbnail_popular) ImageView thumbnailPopular;
+
 
     public PopularMovieViewHolder(View view, final Context context, final List<Movie> movieList){
         super(view);
-        thumbnailPopular=(ImageView) view.findViewById(R.id.thumbnail_popular);
+        ButterKnife.bind(this,view);
+        //thumbnailPopular=(ImageView) view.findViewById(R.id.thumbnail_popular);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override

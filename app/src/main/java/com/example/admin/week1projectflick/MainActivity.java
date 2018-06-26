@@ -24,27 +24,28 @@ import com.example.admin.week1projectflick.model.MovieResponse;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity{
 
-    private RecyclerView recyclerView;
+    @BindView(R.id.recycler_view) RecyclerView recyclerView;
     private ComplexRecyclerViewAdapter adapter;
     private List<Movie> movieList;
     ProgressDialog pd;
-    private SwipeRefreshLayout swipeContainer;
+    @BindView(R.id.main_content) SwipeRefreshLayout swipeContainer;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        ButterKnife.bind(this);
         initViews();
 
-        swipeContainer=(SwipeRefreshLayout)findViewById(R.id.main_content);
         swipeContainer.setColorSchemeResources(android.R.color.holo_orange_dark);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -72,7 +73,6 @@ public class MainActivity extends AppCompatActivity{
         pd.setCancelable(false);
         pd.show();
 
-        recyclerView=(RecyclerView)findViewById(R.id.recycler_view);
 
         movieList =new ArrayList<>();
         adapter=new ComplexRecyclerViewAdapter(this,movieList);

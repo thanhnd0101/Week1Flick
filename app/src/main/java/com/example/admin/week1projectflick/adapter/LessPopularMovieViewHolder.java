@@ -14,16 +14,20 @@ import com.example.admin.week1projectflick.model.Movie;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 public class LessPopularMovieViewHolder extends RecyclerView.ViewHolder{
-    public TextView title, userRating, overView;
-    public ImageView thumbnail;
+    @BindView(R.id.title) TextView title;
+    @BindView(R.id.userrating) TextView userRating;
+    @BindView(R.id.overview) TextView overView;
+    @BindView(R.id.thumbnail) ImageView thumbnail;
+
 
     public LessPopularMovieViewHolder(View view,final Context context,final List<Movie> movieList){
         super(view);
-        title = (TextView) view.findViewById(R.id.title);
-        userRating = (TextView) view.findViewById(R.id.userrating);
-        thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
-        overView = (TextView) view.findViewById(R.id.overview);
+        ButterKnife.bind(this,view);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
