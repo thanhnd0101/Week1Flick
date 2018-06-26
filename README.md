@@ -9,20 +9,20 @@ Time spent: **30** hours spent in total
 
 The following **required** functionality is completed:
 
-* [ ] User can view a list of movies (title, poster image, and overview) currently playing in theaters from the Movie Database API.
-* [ ] List item with the [RecyclerView](https://guides.codepath.com/android/Using-the-RecyclerView).
-* [ ] For each movie displayed, user can see the following details:
-* [ ] Title, Poster Image, Overview (Portrait mode)
-* [ ] Title, Backdrop Image, Overview (Landscape mode)
+*  User can view a list of movies (title, poster image, and overview) currently playing in theaters from the Movie Database API.
+*  List item with the [RecyclerView](https://guides.codepath.com/android/Using-the-RecyclerView).
+*  For each movie displayed, user can see the following details:
+*  Title, Poster Image, Overview (Portrait mode)
+*  Title, Backdrop Image, Overview (Landscape mode)
 
 The following **optional** features are implemented:
 
-* [ ] Display a nice default [placeholder graphic](https://guides.codepath.com/android/Displaying-Images-with-the-Glide-Library) for each image during loading.
-
+*  Display a nice default [placeholder graphic](https://guides.codepath.com/android/Displaying-Images-with-the-Glide-Library) for each image during loading.
+* Expose details of movie (ratings using RatingBar, popularity, and synopsis) in a separate activity.
 The following **bonus** features are implemented:
 
-* [ ] When viewing a popular movie (i.e. a movie voted for more than 5 stars) the video should show the full backdrop image as the layout.  Uses [Heterogenous RecyclerView](http://guides.codepath.com/android/Heterogenous-Layouts-inside-RecyclerView) to show different layouts.
-* [ ] Apply rounded corners for the poster or background images using [Glide transformations](https://bumptech.github.io/glide/doc/transformations.html)
+*  When viewing a popular movie (i.e. a movie voted for more than 5 stars) the video should show the full backdrop image as the layout.  Uses [Heterogenous RecyclerView](http://guides.codepath.com/android/Heterogenous-Layouts-inside-RecyclerView) to show different layouts.
+*  Apply rounded corners for the poster or background images using [Glide transformations](https://bumptech.github.io/glide/doc/transformations.html)
 
 The following **additional** features are implemented:
 Animation CollapsingToolbar
@@ -31,9 +31,17 @@ Animation CollapsingToolbar
 
 Here's a walkthrough of implemented user stories:
 
-<img src = "https://github.com/thanhnguyenduy2304/Week1Flick/blob/master/assets/mainscreen.gif"></img>
+Main Screen Portrait
+<img src = "https://github.com/thanhnguyenduy2304/Week1Flick/blob/master/assets/mainscreenportrait.gif"></img>
 
-<img src = "https://github.com/thanhnguyenduy2304/Week1Flick/blob/master/assets/detailscreen.gif"></img>
+Main Screen Landscape
+<img src = "https://github.com/thanhnguyenduy2304/Week1Flick/blob/master/assets/mainscreenlandscape.gif"></img>
+
+Detail Screen + Collapsing Animation
+<img src = "https://github.com/thanhnguyenduy2304/Week1Flick/blob/master/assets/animationaCollapsing.gif"></img>
+
+Trailer play full screen 
+<img src = "https://github.com/thanhnguyenduy2304/Week1Flick/blob/master/assets/youtubeplayfullscreen.gif"></img>
 
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).

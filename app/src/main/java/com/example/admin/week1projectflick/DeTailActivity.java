@@ -11,6 +11,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 import android.widget.Toast;
@@ -32,8 +33,10 @@ import retrofit2.Response;
 
 
 public class DeTailActivity extends AppCompatActivity {
-    TextView nameOfMovie, plotSynopsis, userRating, releaseDate;
+    TextView  plotSynopsis, releaseDate;
+    RatingBar userRating;
     ImageView imageView;
+    String movieName;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -46,9 +49,8 @@ public class DeTailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         imageView = (ImageView) findViewById(R.id.thumbnailImageHeader);
-        nameOfMovie=(TextView) findViewById(R.id.title);
         plotSynopsis = (TextView) findViewById(R.id.plotSynopsis);
-        userRating= (TextView) findViewById(R.id.userrating);
+        userRating= (RatingBar) findViewById(R.id.userrating);
         releaseDate=(TextView) findViewById(R.id.releaseDate);
 
         initCollapsingToolbar();
@@ -61,7 +63,7 @@ public class DeTailActivity extends AppCompatActivity {
             }else{
                 thumbnail = getIntent().getExtras().getString("backdrop_path");
             }
-            String movieName = getIntent().getExtras().getString("original_title");
+            movieName = getIntent().getExtras().getString("original_title");
             String synopsis=getIntent().getExtras().getString("overview");
             Float rating= getIntent().getExtras().getFloat("vote_average");
             String dateOfRelease= getIntent().getExtras().getString("release_date");
@@ -70,9 +72,8 @@ public class DeTailActivity extends AppCompatActivity {
                     .load(thumbnail)
                     .into(imageView);
 
-            nameOfMovie.setText(movieName);
             plotSynopsis.setText(synopsis);
-            userRating.setText(Float.toString(rating));
+            userRating.setRating(rating);
             releaseDate.setText(dateOfRelease);
 
             LoadTrailerJSON();
@@ -108,11 +109,11 @@ public class DeTailActivity extends AppCompatActivity {
                     scrollRange=appBarLayout.getTotalScrollRange();
                 }
                 if(scrollRange+ verticalOffset == 0){
-                    collapsingToolbarLayout.setTitle(nameOfMovie.getText());
+                    collapsingToolbarLayout.setTitle((String)movieName);
                     isShow=true;
                 }
                 else if (isShow){
-                    collapsingToolbarLayout.setTitle(" ");
+                    collapsingToolbarLayout.setTitle((String)movieName);
                 }
             }
         });
@@ -156,9 +157,40 @@ public class DeTailActivity extends AppCompatActivity {
         youTubePlayerFragment.initialize(MyYouTubeApiKey,
                 new YouTubePlayer.OnInitializedListener() {
                     @Override
-                    public void onInitializationSuccess(YouTubePlayer.Provider provider, YouTubePlayer youTubePlayer, boolean b) {
+                    public void onInitializationSuccess(YouTubePlayer.Provider provider, final YouTubePlayer youTubePlayer, boolean b) {
                         if(youtubes.size()>0){youTubePlayer.cueVideo(youtubes.get(0).getSource());
-                        ;}
+                        youTubePlayer.setPlayerStateChangeListener(new YouTubePlayer.PlayerStateChangeListener() {
+                            @Override
+                            public void onLoading() {
+
+                            }
+
+                            @Override
+                            public void onLoaded(String s) {
+
+                            }
+
+                            @Override
+                            public void onAdStarted() {
+
+                            }
+
+                            @Override
+                            public void onVideoStarted() {
+                                youTubePlayer.setFullscreen(true);
+                            }
+
+                            @Override
+                            public void onVideoEnded() {
+
+                            }
+
+                            @Override
+                            public void onError(YouTubePlayer.ErrorReason errorReason) {
+
+                            }
+                        });
+                        }
                     }
 
                     @Override
