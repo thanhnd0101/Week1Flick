@@ -13,6 +13,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.admin.week1projectflick.adapter.ComplexRecyclerViewAdapter;
@@ -20,6 +21,7 @@ import com.example.admin.week1projectflick.api.Client;
 import com.example.admin.week1projectflick.api.Service;
 import com.example.admin.week1projectflick.model.Movie;
 import com.example.admin.week1projectflick.model.MovieResponse;
+import com.example.admin.week1projectflick.model.TrailerResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -112,6 +114,7 @@ public class MainActivity extends AppCompatActivity{
                     List<Movie> movies= response.body().getResults();
 
                     recyclerView.setAdapter(new ComplexRecyclerViewAdapter(getApplicationContext(),movies));
+
                     if(swipeContainer.isRefreshing()){
                         swipeContainer.setRefreshing(false);
                     }
@@ -129,5 +132,6 @@ public class MainActivity extends AppCompatActivity{
             Toast.makeText(this,e.toString(),Toast.LENGTH_SHORT).show();
         }
     }
+
 
 }

@@ -85,12 +85,14 @@ public class ComplexRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
                     .apply(requestOptions)
                     .into(viewHolder.getThumbnailPopular());
         }
+
     }
     private void configureLesPopViewHolder(LessPopularMovieViewHolder viewHolder, int position){
         viewHolder.title.setText(movieList.get(position).getOriginalTitle());
         String vote = Float.toString(movieList.get(position).getVoteAverage());
         viewHolder.userRating.setText(vote);
         viewHolder.overView.setText(movieList.get(position).getOverview());
+
         RequestOptions requestOptions=new RequestOptions();
         requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners(100));
 

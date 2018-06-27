@@ -36,6 +36,7 @@ public class LessPopularMovieViewHolder extends RecyclerView.ViewHolder{
                 if(pos !=RecyclerView.NO_POSITION){
                     Movie clickedMovie=movieList.get(pos);
                     Intent intent = new Intent(context, DeTailActivity.class);
+
                     intent.putExtra("id",movieList.get(pos).getId());
                     intent.putExtra("original_title",movieList.get(pos).getOriginalTitle());
                     intent.putExtra("poster_path",movieList.get(pos).getPosterPath());
@@ -43,6 +44,7 @@ public class LessPopularMovieViewHolder extends RecyclerView.ViewHolder{
                     intent.putExtra("overview",movieList.get(pos).getOverview());
                     intent.putExtra("vote_average",movieList.get(pos).getVoteAverage());
                     intent.putExtra("release_date",movieList.get(pos).getReleaseDate());
+                    intent.putExtra("popular_video",false);
 
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
