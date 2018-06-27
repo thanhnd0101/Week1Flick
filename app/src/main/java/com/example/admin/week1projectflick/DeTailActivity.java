@@ -20,12 +20,14 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.admin.week1projectflick.api.Client;
 import com.example.admin.week1projectflick.api.Service;
+import com.example.admin.week1projectflick.model.Movie;
 import com.example.admin.week1projectflick.model.TrailerResponse;
 import com.example.admin.week1projectflick.model.Youtube;
 import com.google.android.youtube.player.YouTubeInitializationResult;
 import com.google.android.youtube.player.YouTubePlayer;
 import com.google.android.youtube.player.YouTubePlayerFragment;
 
+import java.io.Serializable;
 import java.util.List;
 
 import butterknife.BindView;
@@ -49,6 +51,19 @@ public class DeTailActivity extends AppCompatActivity {
     private final String MyYouTubeApiKey = "AIzaSyDKjSlBvJyQwGKpmSjq8d7k0QZ-u7fpThM";
     private Boolean popularVideo = false;
 
+    private static String original_title = "original_title";
+    private static String poster_path = "poster_path";
+    private static String backdrop_path = "backdrop_path";
+    private static String overview = "overview";
+    private static String vote_average = "vote_average";
+    private static String release_date = "release_date";
+    private static String trailers="trailers";
+
+    private String thumbnail_portrait;
+    private String thumbnail_landscape;
+    private String synopsis;
+    private Float rating;
+    private String dateOfRelease;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -58,37 +73,45 @@ public class DeTailActivity extends AppCompatActivity {
 
         Intent intentThatStartedThisActivity = getIntent();
 
-        if (intentThatStartedThisActivity.hasExtra("original_title")) {
-            String thumbnail;
-            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-                thumbnail = getIntent().getExtras().getString("poster_path");
-            } else {
-                thumbnail = getIntent().getExtras().getString("backdrop_path");
-            }
-            movieName = (String) getIntent().getExtras().getString("original_title");
-            String synopsis = getIntent().getExtras().getString("overview");
-            Float rating = getIntent().getExtras().getFloat("vote_average");
-            String dateOfRelease = getIntent().getExtras().getString("release_date");
-            if(savedInstanceState == null){
+        if (intentThatStartedThisActivity.hasExtra(original_title)) {
+
+            if (savedInstanceState == null) {
                 popularVideo = (Boolean) getIntent().getExtras().getBoolean("popular_video");
+                assignInformation();
+                LoadTrailerJSON();
+            }else{
+                youtubes=(List<Youtube>) savedInstanceState.getSerializable(trailers);
+                thumbnail_portrait=savedInstanceState.getString(poster_path);
+                thumbnail_landscape=savedInstanceState.getString(backdrop_path);
+                synopsis=savedInstanceState.getString(overview);
+                rating=savedInstanceState.getFloat(vote_average);
+                dateOfRelease=savedInstanceState.getString(release_date);
+                movieName=savedInstanceState.getString(original_title);
+                initTrailer();
             }
-            Glide.with(this)
-                    .load(thumbnail)
-                    .into(poster);
+
+            if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                Glide.with(this)
+                        .load(thumbnail_portrait)
+                        .into(poster);
+            }else{
+                Glide.with(this)
+                        .load(thumbnail_landscape)
+                        .into(poster);
+            }
 
             plotSynopsis.setText(synopsis);
             userRating.setRating(rating);
             releaseDate.setText(dateOfRelease);
 
-            LoadTrailerJSON();
         } else {
             Toast.makeText(this, "No API Data", Toast.LENGTH_SHORT).show();
         }
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initCollapsingToolbar();
     }
@@ -170,8 +193,8 @@ public class DeTailActivity extends AppCompatActivity {
 
                     youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
                     youTubePlayer.cueVideo(youtubes.get(0).getSource());
-                    if(popularVideo){
-                        popularVideo=false;
+                    if (popularVideo) {
+                        popularVideo = false;
                         youTubePlayer.setFullscreen(true);
                         youTubePlayer.play();
                     }
@@ -217,7 +240,26 @@ public class DeTailActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putBoolean("isFullScreenFirstTime",popularVideo);
         super.onSaveInstanceState(outState);
+        //outState.putBoolean("isFullScreenFirstTime", popularVideo);
+        outState.putString(original_title, movieName);
+        outState.putString(poster_path,thumbnail_portrait);
+        outState.putString(backdrop_path,thumbnail_landscape);
+        outState.putString(overview,synopsis);
+        outState.putFloat(vote_average,rating);
+        outState.putString(release_date,dateOfRelease);
+        outState.putSerializable(trailers, (Serializable) youtubes);
+    }
+
+    private void assignInformation(){
+        thumbnail_portrait = getIntent().getExtras().getString(poster_path);
+        thumbnail_landscape = getIntent().getExtras().getString(backdrop_path);
+
+
+        movieName = (String) getIntent().getExtras().getString(original_title);
+        synopsis = getIntent().getExtras().getString(overview);
+        rating = getIntent().getExtras().getFloat(vote_average);
+        dateOfRelease = getIntent().getExtras().getString(release_date);
+
     }
 }

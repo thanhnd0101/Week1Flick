@@ -14,9 +14,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.admin.week1projectflick.R;
 import com.example.admin.week1projectflick.model.Movie;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ComplexRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ComplexRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Serializable {
 
     private Context mContext;
     private List<Movie> movieList;

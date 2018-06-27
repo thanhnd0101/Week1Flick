@@ -23,6 +23,7 @@ import com.example.admin.week1projectflick.model.Movie;
 import com.example.admin.week1projectflick.model.MovieResponse;
 import com.example.admin.week1projectflick.model.TrailerResponse;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,21 +33,35 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.recycler_view) RecyclerView recyclerView;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
     private ComplexRecyclerViewAdapter adapter;
     private List<Movie> movieList;
     ProgressDialog pd;
-    @BindView(R.id.main_content) SwipeRefreshLayout swipeContainer;
+    @BindView(R.id.main_content)
+    SwipeRefreshLayout swipeContainer;
 
-
+    private static final String movie_list_saved = "movie_list";
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        initViews();
+        if (savedInstanceState != null) {
+            movieList=(List<Movie>)savedInstanceState.getSerializable(movie_list_saved);
+            if(movieList.size()> 0){
+                Log.d("asdasdas","size: " + movieList.size());
+            }
+            setRecyclerViewLayout();
+
+            adapter = new ComplexRecyclerViewAdapter(getApplicationContext(), movieList);
+            recyclerView.setAdapter(adapter);
+        }
+        if(savedInstanceState==null){
+            initViews();
+        }
 
         swipeContainer.setColorSchemeResources(android.R.color.holo_orange_dark);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -58,64 +73,67 @@ public class MainActivity extends AppCompatActivity{
         });
     }
 
-    public Activity getActivity(){
-        Context context=this;
-        while(context instanceof ContextWrapper){
-            if(context instanceof Activity){
-                return (Activity)context;
+    public Activity getActivity() {
+        Context context = this;
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return (Activity) context;
             }
-            context=((ContextWrapper)context).getBaseContext();
+            context = ((ContextWrapper) context).getBaseContext();
         }
         return null;
     }
 
-    private void initViews(){
-        pd=new ProgressDialog(this);
+    private void initViews() {
+        pd = new ProgressDialog(this);
         pd.setMessage("Fectching movies...");
         pd.setCancelable(false);
         pd.show();
 
+        //movieList = new ArrayList<>();
+        //adapter = new ComplexRecyclerViewAdapter(this, movieList);
 
-        movieList =new ArrayList<>();
-        adapter=new ComplexRecyclerViewAdapter(this,movieList);
+        setRecyclerViewLayout();
 
-        if(getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-            recyclerView.setLayoutManager(new GridLayoutManager(this,1));
-            //recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        }else{
-            recyclerView.setLayoutManager(new GridLayoutManager(this,1));
-        }
-
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
+        //recyclerView.setItemAnimator(new DefaultItemAnimator());
+        //recyclerView.setAdapter(adapter);
+        //adapter.notifyDataSetChanged();
 
         loadJSON();
     }
+    private void setRecyclerViewLayout(){
 
-    private void loadJSON(){
-        try{
-            if(BuildConfig.THE_MOVIE_DB_API_TOKEN.isEmpty()){
-                Toast.makeText(getApplicationContext(),"Please obtain API key firstly from themoviedb.org",Toast.LENGTH_SHORT).show();
+        if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+        } else {
+            recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+        }
+    }
+    private void loadJSON() {
+        try {
+            if (BuildConfig.THE_MOVIE_DB_API_TOKEN.isEmpty()) {
+                Toast.makeText(getApplicationContext(), "Please obtain API key firstly from themoviedb.org", Toast.LENGTH_SHORT).show();
                 pd.dismiss();
                 return;
             }
             //Tao object retrofit
-            Client client=new Client();
+            Client client = new Client();
             //Tao interface
-            Service apiService= client.getClient().create(Service.class);
+            Service apiService = client.getClient().create(Service.class);
 
-            Call<MovieResponse> call= apiService.getNowPlayingMovies(BuildConfig.THE_MOVIE_DB_API_TOKEN);
+            Call<MovieResponse> call = apiService.getNowPlayingMovies(BuildConfig.THE_MOVIE_DB_API_TOKEN);
 
             call.enqueue(new Callback<MovieResponse>() {
                 @Override
                 public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
 
-                    List<Movie> movies= response.body().getResults();
+                    movieList = response.body().getResults();
 
-                    recyclerView.setAdapter(new ComplexRecyclerViewAdapter(getApplicationContext(),movies));
+                    adapter=new ComplexRecyclerViewAdapter(getApplicationContext(), movieList);
 
-                    if(swipeContainer.isRefreshing()){
+                    recyclerView.setAdapter(adapter);
+
+                    if (swipeContainer.isRefreshing()) {
                         swipeContainer.setRefreshing(false);
                     }
                     pd.dismiss();
@@ -123,15 +141,19 @@ public class MainActivity extends AppCompatActivity{
 
                 @Override
                 public void onFailure(Call<MovieResponse> call, Throwable t) {
-                    Log.d("Error",t.getMessage());
-                    Toast.makeText(MainActivity.this,"Error Fetching Data!",Toast.LENGTH_SHORT).show();
+                    Log.d("Error", t.getMessage());
+                    Toast.makeText(MainActivity.this, "Error Fetching Data!", Toast.LENGTH_SHORT).show();
                 }
             });
-        } catch (Exception e){
-            Log.d("Error",e.getMessage());
-            Toast.makeText(this,e.toString(),Toast.LENGTH_SHORT).show();
+        } catch (Exception e) {
+            Log.d("Error", e.getMessage());
+            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
         }
     }
 
-
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(movie_list_saved, (Serializable) movieList);
+    }
 }

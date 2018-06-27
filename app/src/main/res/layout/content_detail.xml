@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <LinearLayout
@@ -27,7 +27,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
-                    android:src="@drawable/rating"/>
+                    android:src="@drawable/rating"
+                    android:scaleY="0.8"
+                    android:scaleX="0.8"/>
 
                 <RatingBar
                     android:id="@+id/userrating"
@@ -35,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:numStars="10"
-                    android:stepSize="0.2"
+                    android:stepSize="0.1"
                     android:scaleX="0.7"
                     android:scaleY="0.7" />
             </LinearLayout>

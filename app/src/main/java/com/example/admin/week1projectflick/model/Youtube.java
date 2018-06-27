@@ -2,7 +2,9 @@ package com.example.admin.week1projectflick.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Youtube {
+import java.io.Serializable;
+
+public class Youtube implements Serializable{
     @SerializedName("name")
     private String name;
     @SerializedName("size")
