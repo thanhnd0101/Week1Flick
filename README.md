@@ -23,6 +23,11 @@ The following **optional** features are implemented:
 The following **bonus** features are implemented:
 
 *  When viewing a popular movie (i.e. a movie voted for more than 5 stars) the video should show the full backdrop image as the layout.  
+*  Allow video trailers to be played in full-screen using the YouTubePlayerView.
+    *  Overlay a play icon for videos that can be played.
+    *  More popular movies should start a separate activity that plays the video immediately.
+    *  Less popular videos rely on the detail page should show ratings and a YouTube preview.
+*  Apply the popular [Butterknife annotation library](http://guides.codepath.com/android/Reducing-View-Boilerplate-with-Butterknife) to reduce boilerplate code.
 * Uses [Heterogenous RecyclerView](http://guides.codepath.com/android/Heterogenous-Layouts-inside-RecyclerView) to show different layouts.
 *  Apply rounded corners for the poster or background images using [Glide transformations](https://bumptech.github.io/glide/doc/transformations.html)
 
