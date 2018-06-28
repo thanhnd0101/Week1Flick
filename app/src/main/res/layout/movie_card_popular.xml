@@ -5,8 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/cardMoviePopularHeight"
     android:layout_margin="@dimen/cardMovieMargin"
-    android:elevation="3dp"
-    card_view:cardCornerRadius="@dimen/cardMovieRadius">
+    android:elevation="@dimen/cardMovieElevation"
+    card_view:cardCornerRadius="@dimen/cardMovieRadius"
+    card_view:cardBackgroundColor="@color/movie_card">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:scaleType="centerCrop" />
+            android:scaleType="centerCrop"/>
 
         <ImageView
             android:id="@+id/icon_play"

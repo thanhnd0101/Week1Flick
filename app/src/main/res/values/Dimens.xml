@@ -6,9 +6,12 @@
     <dimen name="movieTitle">15dp</dimen>
     <dimen name="movieOverView">10dp</dimen>
     <dimen name="movieCoverHeight">160dp</dimen>
-    <dimen name="cardMovieRadius">0dp</dimen>
+
+    <dimen name="cardMovieRadius">40dp</dimen>
     <dimen name="cardMovieMargin">5dp</dimen>
     <dimen name="cardMoviePopularHeight">300dp</dimen>
+    <dimen name="cardMovieElevation">5dp</dimen>
+
     <dimen name="userRatingPaddingBottom">5dp</dimen>
     <dimen name="userRatingPaddingTop">15dp</dimen>
     <dimen name="userRating">12dp</dimen>

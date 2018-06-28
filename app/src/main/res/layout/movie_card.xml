@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/cardMovieMargin"
-        android:elevation="3dp"
+        android:elevation="@dimen/cardMovieElevation"
         card_view:cardCornerRadius="@dimen/cardMovieRadius"
         card_view:cardBackgroundColor="@color/movie_card">
 

@@ -8,10 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.request.RequestOptions;
 import com.example.admin.week1projectflick.R;
 import com.example.admin.week1projectflick.model.Movie;
 
@@ -77,46 +73,32 @@ public class ComplexRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
         }
     }
     private void configurePopViewHolder(PopularMovieViewHolder viewHolder, int position){
-        RequestOptions requestOptions=new RequestOptions();
-        requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners(100));
 
-//        ImageView imageView=(ImageView) viewHolder.getThumbnailPopular();;
-//        String url;
+        ImageView imageView=viewHolder.getThumbnailPopular();;
+        String url;
         if(mContext.getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT) {
-            Glide.with(mContext)
-                    .load(movieList.get(position).getPosterPath())
-                    .apply(requestOptions)
-                    .into(viewHolder.getThumbnailPopular());
-//            url=movieList.get(position).getPosterPath();
+            url=movieList.get(position).getPosterPath();
         }else{
-//            url=movieList.get(position).getBackdroPath();
-            Glide.with(mContext)
-                    .load(movieList.get(position).getBackdroPath())
-                    .apply(requestOptions)
-                    .into(viewHolder.getThumbnailPopular());
+            url=movieList.get(position).getBackdroPath();
         }
-//        loadImage(imageView,url);
+        loadImage(mContext,imageView,url);
 
     }
-    private void configureLesPopViewHolder(LessPopularMovieViewHolder viewHolder, int position){
+    private void configureLesPopViewHolder(LessPopularMovieViewHolder viewHolder, int position) {
         viewHolder.title.setText(movieList.get(position).getOriginalTitle());
         String vote = Float.toString(movieList.get(position).getVoteAverage());
+
         viewHolder.userRating.setText(vote);
         viewHolder.overView.setText(movieList.get(position).getOverview());
 
-        RequestOptions requestOptions=new RequestOptions();
-        requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners(100));
-
-        if(mContext.getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT) {
-            Glide.with(mContext)
-                    .load(movieList.get(position).getPosterPath())
-                    .apply(requestOptions)
-                    .into(viewHolder.getThumbnail());
-        }else{
-            Glide.with(mContext)
-                    .load(movieList.get(position).getBackdroPath())
-                    .apply(requestOptions)
-                    .into(viewHolder.getThumbnail());
+        ImageView imageView = viewHolder.getThumbnail();
+        ;
+        String url;
+        if (mContext.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            url = movieList.get(position).getPosterPath();
+        } else {
+            url = movieList.get(position).getBackdroPath();
         }
+        loadImage(mContext, imageView, url);
     }
 }

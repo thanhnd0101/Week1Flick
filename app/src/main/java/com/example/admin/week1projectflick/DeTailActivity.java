@@ -5,22 +5,26 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.res.Configuration;
+
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+
 import android.widget.ImageView;
-import android.widget.RatingBar;
-import android.widget.TextView;
-import android.support.v7.widget.Toolbar;
+
 import android.widget.Toast;
+import android.support.v7.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
+import com.example.admin.week1projectflick.adapter.PagerAdapterInDetail;
 import com.example.admin.week1projectflick.api.Client;
 import com.example.admin.week1projectflick.api.Service;
-import com.example.admin.week1projectflick.model.Movie;
+import com.example.admin.week1projectflick.model.MovieDetailTab;
+import com.example.admin.week1projectflick.model.MovieTrailerTab;
 import com.example.admin.week1projectflick.model.TrailerResponse;
 import com.example.admin.week1projectflick.model.Youtube;
 import com.google.android.youtube.player.YouTubeInitializationResult;
@@ -36,34 +40,37 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.example.admin.week1projectflick.adapter.BindingAdapterUtils.loadImage;
 
-public class DeTailActivity extends AppCompatActivity {
-    @BindView(R.id.plotSynopsis)
-    TextView plotSynopsis;
-    @BindView(R.id.releaseDate)
-    TextView releaseDate;
-    @BindView(R.id.userrating)
-    RatingBar userRating;
+
+public class DeTailActivity extends AppCompatActivity{
     @BindView(R.id.thumbnailImageHeader)
     ImageView poster;
+    @BindView(R.id.viewPager)
+    ViewPager viewPager;
+    @BindView(R.id.tabs)
+    TabLayout tabLayout;
+
     private String movieName;
     private List<Youtube> youtubes;
     private final String MyYouTubeApiKey = "AIzaSyDKjSlBvJyQwGKpmSjq8d7k0QZ-u7fpThM";
     private Boolean popularVideo = false;
 
-    private static String original_title = "original_title";
-    private static String poster_path = "poster_path";
-    private static String backdrop_path = "backdrop_path";
-    private static String overview = "overview";
-    private static String vote_average = "vote_average";
-    private static String release_date = "release_date";
-    private static String trailers="trailers";
+    private static final String original_title = "original_title";
+    private static final String poster_path = "poster_path";
+    private static final String backdrop_path = "backdrop_path";
+    private static final String overview = "overview";
+    private static final String vote_average = "vote_average";
+    private static final String release_date = "release_date";
+    private static final String trailers="trailers";
+    private static final String id="id";
 
     private String thumbnail_portrait;
     private String thumbnail_landscape;
     private String synopsis;
     private Float rating;
     private String dateOfRelease;
+    private int idmovie;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -79,8 +86,10 @@ public class DeTailActivity extends AppCompatActivity {
                 popularVideo = (Boolean) getIntent().getExtras().getBoolean("popular_video");
                 assignInformation();
                 LoadTrailerJSON();
+
             }else{
                 youtubes=(List<Youtube>) savedInstanceState.getSerializable(trailers);
+                idmovie=savedInstanceState.getInt(id);
                 thumbnail_portrait=savedInstanceState.getString(poster_path);
                 thumbnail_landscape=savedInstanceState.getString(backdrop_path);
                 synopsis=savedInstanceState.getString(overview);
@@ -95,23 +104,23 @@ public class DeTailActivity extends AppCompatActivity {
                         .load(thumbnail_portrait)
                         .into(poster);
             }else{
-                Glide.with(this)
-                        .load(thumbnail_landscape)
-                        .into(poster);
+                loadImage(this,poster,thumbnail_landscape);
             }
-
-            plotSynopsis.setText(synopsis);
-            userRating.setRating(rating);
-            releaseDate.setText(dateOfRelease);
 
         } else {
             Toast.makeText(this, "No API Data", Toast.LENGTH_SHORT).show();
         }
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
+        PagerAdapterInDetail pagerAdapterInDetail=new PagerAdapterInDetail(getSupportFragmentManager());
+        pagerAdapterInDetail.addFragment(MovieDetailTab.newInstance(synopsis,dateOfRelease,rating),"Detail");
+        pagerAdapterInDetail.addFragment(MovieTrailerTab.newInstance(),"Trailer");
+        viewPager.setAdapter(pagerAdapterInDetail);
+        tabLayout.setupWithViewPager(viewPager);
 
         initCollapsingToolbar();
     }
@@ -186,6 +195,7 @@ public class DeTailActivity extends AppCompatActivity {
     private void initTrailer() {
         YouTubePlayerFragment youTubePlayerFragment = (YouTubePlayerFragment)
                 getFragmentManager().findFragmentById(R.id.youtubeFragment);
+
         youTubePlayerFragment.initialize(MyYouTubeApiKey, new YouTubePlayer.OnInitializedListener() {
             @Override
             public void onInitializationSuccess(YouTubePlayer.Provider provider, final YouTubePlayer youTubePlayer, boolean b) {
@@ -241,25 +251,25 @@ public class DeTailActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        //outState.putBoolean("isFullScreenFirstTime", popularVideo);
+        outState.putBoolean("isFullScreenFirstTime", popularVideo);
         outState.putString(original_title, movieName);
         outState.putString(poster_path,thumbnail_portrait);
         outState.putString(backdrop_path,thumbnail_landscape);
         outState.putString(overview,synopsis);
         outState.putFloat(vote_average,rating);
         outState.putString(release_date,dateOfRelease);
+        outState.putInt(id,idmovie);
         outState.putSerializable(trailers, (Serializable) youtubes);
     }
 
     private void assignInformation(){
+        idmovie=getIntent().getExtras().getInt(id);
         thumbnail_portrait = getIntent().getExtras().getString(poster_path);
         thumbnail_landscape = getIntent().getExtras().getString(backdrop_path);
-
-
         movieName = (String) getIntent().getExtras().getString(original_title);
         synopsis = getIntent().getExtras().getString(overview);
         rating = getIntent().getExtras().getFloat(vote_average);
         dateOfRelease = getIntent().getExtras().getString(release_date);
-
     }
+
 }
