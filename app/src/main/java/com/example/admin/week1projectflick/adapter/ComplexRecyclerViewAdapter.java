@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
@@ -16,6 +17,8 @@ import com.example.admin.week1projectflick.model.Movie;
 
 import java.io.Serializable;
 import java.util.List;
+
+import static com.example.admin.week1projectflick.adapter.BindingAdapterUtils.loadImage;
 
 public class ComplexRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements Serializable {
 
@@ -45,8 +48,10 @@ public class ComplexRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+
         RecyclerView.ViewHolder viewHolder;
         LayoutInflater inflater=LayoutInflater.from(viewGroup.getContext());
+
         switch (viewType){
             case POPULAR:
                 View viewPop=inflater.inflate(R.layout.movie_card_popular,viewGroup,false);
@@ -75,17 +80,22 @@ public class ComplexRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
         RequestOptions requestOptions=new RequestOptions();
         requestOptions = requestOptions.transforms(new CenterCrop(), new RoundedCorners(100));
 
+//        ImageView imageView=(ImageView) viewHolder.getThumbnailPopular();;
+//        String url;
         if(mContext.getResources().getConfiguration().orientation== Configuration.ORIENTATION_PORTRAIT) {
             Glide.with(mContext)
                     .load(movieList.get(position).getPosterPath())
                     .apply(requestOptions)
                     .into(viewHolder.getThumbnailPopular());
+//            url=movieList.get(position).getPosterPath();
         }else{
+//            url=movieList.get(position).getBackdroPath();
             Glide.with(mContext)
                     .load(movieList.get(position).getBackdroPath())
                     .apply(requestOptions)
                     .into(viewHolder.getThumbnailPopular());
         }
+//        loadImage(imageView,url);
 
     }
     private void configureLesPopViewHolder(LessPopularMovieViewHolder viewHolder, int position){

@@ -16,4 +16,10 @@
     <style name="AppTheme.AppBarOverLay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverLay" parent="ThemeOverlay.AppCompat.Light"/>
 
+    <style name="CustomHeartsRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="colorControlNormal">#fab3ad</item>
+        <item name="colorControlActivated">#ff0000</item>
+    </style>
+
+
 </resources>

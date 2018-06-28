@@ -10,6 +10,7 @@
     <dimen name="cardMovieMargin">5dp</dimen>
     <dimen name="cardMoviePopularHeight">300dp</dimen>
     <dimen name="userRatingPaddingBottom">5dp</dimen>
+    <dimen name="userRatingPaddingTop">15dp</dimen>
     <dimen name="userRating">12dp</dimen>
     <dimen name="detailBackdropHeight">400dp</dimen>
     <dimen name="layoutMarginLeft">10dp</dimen>

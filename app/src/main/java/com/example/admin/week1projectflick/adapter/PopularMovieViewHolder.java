@@ -1,35 +1,19 @@
 package com.example.admin.week1projectflick.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.admin.week1projectflick.BuildConfig;
 import com.example.admin.week1projectflick.DeTailActivity;
 import com.example.admin.week1projectflick.R;
-import com.example.admin.week1projectflick.api.Client;
-import com.example.admin.week1projectflick.api.Service;
 import com.example.admin.week1projectflick.model.Movie;
-import com.example.admin.week1projectflick.model.TrailerResponse;
-import com.example.admin.week1projectflick.model.Youtube;
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerFragment;
-
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class PopularMovieViewHolder extends RecyclerView.ViewHolder {
     @BindView(R.id.thumbnail_poster_popular)  ImageView thumbnailPopular;

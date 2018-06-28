@@ -19,12 +19,13 @@ import android.widget.Toast;
 import com.example.admin.week1projectflick.adapter.ComplexRecyclerViewAdapter;
 import com.example.admin.week1projectflick.api.Client;
 import com.example.admin.week1projectflick.api.Service;
+
 import com.example.admin.week1projectflick.model.Movie;
 import com.example.admin.week1projectflick.model.MovieResponse;
-import com.example.admin.week1projectflick.model.TrailerResponse;
+
 
 import java.io.Serializable;
-import java.util.ArrayList;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -44,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
     SwipeRefreshLayout swipeContainer;
 
     private static final String movie_list_saved = "movie_list";
+
+
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,9 +54,6 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         if (savedInstanceState != null) {
             movieList=(List<Movie>)savedInstanceState.getSerializable(movie_list_saved);
-            if(movieList.size()> 0){
-                Log.d("asdasdas","size: " + movieList.size());
-            }
             setRecyclerViewLayout();
 
             adapter = new ComplexRecyclerViewAdapter(getApplicationContext(), movieList);

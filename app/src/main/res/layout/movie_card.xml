@@ -66,18 +66,30 @@
                     android:paddingTop="@dimen/movieTitlePadding"
                     android:textColor="@color/movieTitle"
                     android:textSize="@dimen/movieOverView" />
-
-                <TextView
-                    android:id="@+id/userrating"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/overview"
-                    android:paddingLeft="@dimen/movieTitlePadding"
-                    android:paddingRight="@dimen/movieTitlePadding"
-                    android:paddingTop="@dimen/userRatingPaddingBottom"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="@dimen/userRating"
-                    />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/icon_imdb"
+                        android:scaleType="fitXY"
+                        android:scaleX="0.5"
+                        android:scaleY="0.5"
+                        android:src="@drawable/imdb"
+                        />
+                    <TextView
+                        android:id="@+id/userrating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/overview"
+                        android:paddingRight="@dimen/movieTitlePadding"
+                        android:paddingTop="@dimen/userRatingPaddingTop"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="@dimen/userRating"
+                        />
+                </LinearLayout>
 
             </LinearLayout>
         </RelativeLayout>
