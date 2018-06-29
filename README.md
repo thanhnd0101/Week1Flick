@@ -33,6 +33,7 @@ The following **bonus** features are implemented:
 
 The following **additional** features are implemented:
 Animation CollapsingToolbar
+ViewPager
 
 ## Video Walkthrough
 

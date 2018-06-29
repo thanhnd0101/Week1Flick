@@ -12,6 +12,7 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
 import android.widget.ImageView;
@@ -27,9 +28,6 @@ import com.example.admin.week1projectflick.model.MovieDetailTab;
 import com.example.admin.week1projectflick.model.MovieTrailerTab;
 import com.example.admin.week1projectflick.model.TrailerResponse;
 import com.example.admin.week1projectflick.model.Youtube;
-import com.google.android.youtube.player.YouTubeInitializationResult;
-import com.google.android.youtube.player.YouTubePlayer;
-import com.google.android.youtube.player.YouTubePlayerFragment;
 
 import java.io.Serializable;
 import java.util.List;
@@ -72,6 +70,11 @@ public class DeTailActivity extends AppCompatActivity{
     private String dateOfRelease;
     private int idmovie;
 
+    @BindView(R.id.trailer_recyclerview)
+    RecyclerView trailer_recyclerView;
+
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,8 +89,8 @@ public class DeTailActivity extends AppCompatActivity{
                 popularVideo = (Boolean) getIntent().getExtras().getBoolean("popular_video");
                 assignInformation();
                 LoadTrailerJSON();
-
             }else{
+                popularVideo=false;
                 youtubes=(List<Youtube>) savedInstanceState.getSerializable(trailers);
                 idmovie=savedInstanceState.getInt(id);
                 thumbnail_portrait=savedInstanceState.getString(poster_path);
@@ -96,7 +99,15 @@ public class DeTailActivity extends AppCompatActivity{
                 rating=savedInstanceState.getFloat(vote_average);
                 dateOfRelease=savedInstanceState.getString(release_date);
                 movieName=savedInstanceState.getString(original_title);
-                initTrailer();
+
+                PagerAdapterInDetail pagerAdapterInDetail=new PagerAdapterInDetail(getSupportFragmentManager());
+                pagerAdapterInDetail.addFragment(MovieDetailTab.newInstance(synopsis,dateOfRelease,rating),"Detail");
+                pagerAdapterInDetail.addFragment(MovieTrailerTab.newInstance(this,youtubes,popularVideo),"Trailer");
+
+
+                viewPager.setAdapter(pagerAdapterInDetail);
+                tabLayout.setupWithViewPager(viewPager);
+
             }
 
             if (getActivity().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -114,13 +125,6 @@ public class DeTailActivity extends AppCompatActivity{
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
-        PagerAdapterInDetail pagerAdapterInDetail=new PagerAdapterInDetail(getSupportFragmentManager());
-        pagerAdapterInDetail.addFragment(MovieDetailTab.newInstance(synopsis,dateOfRelease,rating),"Detail");
-        pagerAdapterInDetail.addFragment(MovieTrailerTab.newInstance(),"Trailer");
-        viewPager.setAdapter(pagerAdapterInDetail);
-        tabLayout.setupWithViewPager(viewPager);
 
         initCollapsingToolbar();
     }
@@ -164,7 +168,7 @@ public class DeTailActivity extends AppCompatActivity{
 
     private void LoadTrailerJSON() {
 
-        int id_movie = getIntent().getExtras().getInt("id");
+        final int id_movie = getIntent().getExtras().getInt("id");
         try {
             //Tao object retrofit
             Client client = new Client();
@@ -177,7 +181,14 @@ public class DeTailActivity extends AppCompatActivity{
                 @Override
                 public void onResponse(Call<TrailerResponse> call, Response<TrailerResponse> response) {
                     youtubes = response.body().getYoutubes();
-                    initTrailer();
+
+                    PagerAdapterInDetail pagerAdapterInDetail=new PagerAdapterInDetail(getSupportFragmentManager());
+                    pagerAdapterInDetail.addFragment(MovieDetailTab.newInstance(synopsis,dateOfRelease,rating),"Detail");
+                    pagerAdapterInDetail.addFragment(MovieTrailerTab.newInstance(getApplicationContext(),youtubes,popularVideo),"Trailer");
+
+                    viewPager.setAdapter(pagerAdapterInDetail);
+                    tabLayout.setupWithViewPager(viewPager);
+
                 }
 
                 @Override
@@ -190,62 +201,6 @@ public class DeTailActivity extends AppCompatActivity{
             Log.d("Error", e.getMessage());
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private void initTrailer() {
-        YouTubePlayerFragment youTubePlayerFragment = (YouTubePlayerFragment)
-                getFragmentManager().findFragmentById(R.id.youtubeFragment);
-
-        youTubePlayerFragment.initialize(MyYouTubeApiKey, new YouTubePlayer.OnInitializedListener() {
-            @Override
-            public void onInitializationSuccess(YouTubePlayer.Provider provider, final YouTubePlayer youTubePlayer, boolean b) {
-                if (youtubes.size() > 0) {
-
-                    youTubePlayer.setPlayerStyle(YouTubePlayer.PlayerStyle.DEFAULT);
-                    youTubePlayer.cueVideo(youtubes.get(0).getSource());
-                    if (popularVideo) {
-                        popularVideo = false;
-                        youTubePlayer.setFullscreen(true);
-                        youTubePlayer.play();
-                    }
-
-                    youTubePlayer.setPlayerStateChangeListener(new YouTubePlayer.PlayerStateChangeListener() {
-                        @Override
-                        public void onLoading() {
-                        }
-
-                        @Override
-                        public void onLoaded(String s) {
-                        }
-
-                        @Override
-                        public void onAdStarted() {
-
-                        }
-
-                        @Override
-                        public void onVideoStarted() {
-                            youTubePlayer.setFullscreen(true);
-                        }
-
-                        @Override
-                        public void onVideoEnded() {
-
-                        }
-
-                        @Override
-                        public void onError(YouTubePlayer.ErrorReason errorReason) {
-
-                        }
-                    });
-
-                }
-            }
-
-            @Override
-            public void onInitializationFailure(YouTubePlayer.Provider provider, YouTubeInitializationResult youTubeInitializationResult) {
-            }
-        });
     }
 
     @Override
@@ -271,5 +226,4 @@ public class DeTailActivity extends AppCompatActivity{
         rating = getIntent().getExtras().getFloat(vote_average);
         dateOfRelease = getIntent().getExtras().getString(release_date);
     }
-
 }

@@ -16,7 +16,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 public class LessPopularMovieViewHolder extends RecyclerView.ViewHolder{
     @BindView(R.id.title) TextView title;

@@ -8,12 +8,9 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.admin.week1projectflick.adapter.ComplexRecyclerViewAdapter;
@@ -89,15 +86,7 @@ public class MainActivity extends AppCompatActivity {
         pd.setMessage("Fectching movies...");
         pd.setCancelable(false);
         pd.show();
-
-        //movieList = new ArrayList<>();
-        //adapter = new ComplexRecyclerViewAdapter(this, movieList);
-
         setRecyclerViewLayout();
-
-        //recyclerView.setItemAnimator(new DefaultItemAnimator());
-        //recyclerView.setAdapter(adapter);
-        //adapter.notifyDataSetChanged();
 
         loadJSON();
     }

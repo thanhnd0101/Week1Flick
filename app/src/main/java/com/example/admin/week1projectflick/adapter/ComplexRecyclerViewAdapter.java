@@ -101,4 +101,6 @@ public class ComplexRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
         }
         loadImage(mContext, imageView, url);
     }
+
+
 }

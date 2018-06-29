@@ -12,6 +12,7 @@
     <dimen name="cardMoviePopularHeight">300dp</dimen>
     <dimen name="cardMovieElevation">5dp</dimen>
 
+    <dimen name="posterHeight">400dp</dimen>
     <dimen name="userRatingPaddingBottom">5dp</dimen>
     <dimen name="userRatingPaddingTop">15dp</dimen>
     <dimen name="userRating">12dp</dimen>

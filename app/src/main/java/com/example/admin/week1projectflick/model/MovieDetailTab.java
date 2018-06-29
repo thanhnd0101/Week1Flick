@@ -21,9 +21,6 @@ public class MovieDetailTab extends Fragment {
     static TextView releaseDate;
     static RatingBar userRating;
 
-    private static String synopsis;
-    private Float rating;
-    private String dateOfRelease;
 
     private static String OverView;
     private static String ReleaseDate;

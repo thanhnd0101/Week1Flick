@@ -1,26 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".model.MovieTrailerTab">
-
-    <TextView
-        android:id="@+id/movieTrailer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/layoutMarginLeft"
-        android:layout_marginTop="10dp"
-        android:text="@string/movieTrailer"
-        android:textAlignment="center"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/movie_card"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_marginTop="@dimen/activity_vertial_margin">
 
     <fragment
         android:id="@+id/youtubeFragment"
         android:name="com.google.android.youtube.player.YouTubePlayerFragment"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="visible">
     </fragment>
 
-</FrameLayout>
+</LinearLayout>
