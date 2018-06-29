@@ -46,7 +46,7 @@ Main Screen Landscape <br />
 <img src = "https://github.com/thanhnguyenduy2304/Week1Flick/blob/master/assets/mainscreenlandscape.gif"></img>
 
 Detail Screen + Collapsing Animation <br />
-<img src = "https://github.com/thanhnguyenduy2304/Week1Flick/blob/master/assets/animationaCollapsing.gif"></img>
+<img src = "https://github.com/thanhnguyenduy2304/Week1Flick/blob/master/assets/detailscreen.gif"></img>
 
 Trailer play full screen <br />
 <img src = "https://github.com/thanhnguyenduy2304/Week1Flick/blob/master/assets/youtubeplayfullscreen.gif"></img>
